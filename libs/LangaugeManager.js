@@ -1,6 +1,16 @@
 // https://superxnero.github.io/assets/libs/LanguageManager.js
 class LanguageManager {
-  #changeEventsKeys = ["language", "baseUrl", "saveAll", "defaultLanguage", "changeToDefaultLanguage", "elements", "languagesContent", "textid", "textclass", "subtextid", "textupdatemethod"];
+  #changeEventsKeys = ["language",
+    "baseUrl",
+    "saveAll",
+    "defaultLanguage",
+    "changeToDefaultLanguage",
+    "elements",
+    "languagesContent",
+    "textid",
+    "textclass",
+    "subtextid",
+    "textupdatemethod"];
   constructor(settings = {}) {
     this.settings = settings;
     this.languagesContent = {};
@@ -44,7 +54,7 @@ class LanguageManager {
       console.error("Error fetching language content:", error);
     }
   }
-  
+
   getAvailableLanguage() {
     return Object.keys(this.languagesContent);
   }
@@ -92,6 +102,33 @@ class LanguageManager {
       console.warn("Selected language not available. Add language content first, then change language.");
     }
     this.language = language;
+
+
+
+    const langContent = this.getLangContent();
+    const dir = langContent["*--dir--*"];
+    const fontFamily = langContent["*--fontFamily--*"];
+    const className = langContent["*--className--*"];
+    if (dir) {
+      const elements = Object.values(qA(`*`)).filter(e => e.dataset["textid"]);
+      elements.forEach((element)=> {
+        element.dir = dir;
+      });
+    }
+    if (fontFamily) {
+      root.style.fontFamily = fontFamily;
+    }
+    if (className) {
+      if (className === "*--language--*") {
+        root.className += ` ${value}Language`;
+      } else {
+        root.className += ` ${className}`;
+      }
+      root.className = Object.values(root.classList).join(" ");
+    }
+
+
+
     this.updateElements();
     this.#callChangeEvent("language", language);
   }
