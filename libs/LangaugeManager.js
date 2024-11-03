@@ -119,7 +119,7 @@ class LanguageManager {
       root.style.fontFamily = fontFamily;
     }
     if (className) {
-      if (className === "*--language--*") {
+      if (className === "{language}") {
         root.className += ` ${value}Language`;
       } else {
         root.className += ` ${className}`;
