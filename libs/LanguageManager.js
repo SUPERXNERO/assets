@@ -95,6 +95,10 @@ class LanguageManager {
   async setLanguage(language) {
     if (language === this.language) {
       console.warn("The language is already set to the new language.");
+      if (languages.includes(language)) {
+        this.updateElements();
+      }
+      this.#callChangeEvent("language", language);
       return;
     }
     let languages = Object.keys(this.languagesContent);
@@ -134,7 +138,6 @@ class LanguageManager {
         }
       }
     }
-
     if (languages.includes(language)) {
       this.updateElements();
     }
