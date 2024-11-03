@@ -225,3 +225,5 @@ export {
 
 const gitHubManager = new GitHubManager(`${access_token}`, `${username}`, `${repo}`);
 */
+
+const gitHubManager = new GitHubManager(, "superxnero", "languages-content");
