@@ -426,3 +426,4 @@ class LanguageManager {
     return elements;
   }
 }
+const languageManager = new LanguageManager();
