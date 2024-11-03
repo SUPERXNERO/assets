@@ -103,7 +103,7 @@ class LanguageManager {
     }
     this.language = language;
     const langContent = this.getLangContent();
-    if (langContent) {
+    if (langContent && langContent.settings) {
       const dir = langContent.settings["dir"];
       const fontFamily = langContent.settings["fontFamily"];
       const className = langContent.settings["className"];
