@@ -222,6 +222,6 @@ export {
 /*
 - test using -
 
-const gitHubManager = new GitHubManager();
+const gitHubManager = new GitHubManager(`${access_token}`, "superxnero", "assets");
 
 */
