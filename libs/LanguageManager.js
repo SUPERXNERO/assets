@@ -1,5 +1,5 @@
 // https://superxnero.github.io/assets/libs/LanguageManager.js
-// make settings private
+// make settings private, and create a function to get settings
 const root = document.documentElement;
 
 class LanguageManager {
@@ -20,7 +20,7 @@ class LanguageManager {
     this.changeEvents = {};
     this.elements = this.reloadScanningElements(true);
     if (typeof settings.saveAll !== "boolean") {
-      this.setSaveAll(false);
+      this.setSaveAll(true);
     }
     if (typeof settings.baseUrl !== "string") {
       this.setBaseUrl(null);
