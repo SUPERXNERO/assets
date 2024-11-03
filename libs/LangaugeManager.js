@@ -356,7 +356,7 @@ class LanguageManager {
   }
 
   updateElements(textclass) {
-    let elements = this.reloadScanningElements();
+    let elements = this.reloadScanningElements(true);
     if (textclass) {
       elements = elements.filter((element) => {
         const textoptions = this.parseTextOptions(element.dataset[this.settings.textOptionsName]);
