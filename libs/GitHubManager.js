@@ -1,3 +1,4 @@
+// https://superxnero.github.io/assets/libs/GitHubManager.js
 class GitHubManager {
   constructor(token, username, currentRepo = null) {
     this.token = token;
