@@ -426,4 +426,7 @@ class LanguageManager {
     return elements;
   }
 }
+export {
+  LanguageManager
+}
 const languageManager = new LanguageManager();
