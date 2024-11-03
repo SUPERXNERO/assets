@@ -219,3 +219,9 @@ class GitHubManager {
 export {
   GitHubManager
 }
+/*
+- test using -
+
+const gitHubManager = new GitHubManager();
+
+*/
