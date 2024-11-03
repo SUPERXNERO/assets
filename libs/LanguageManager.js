@@ -126,9 +126,9 @@ class LanguageManager {
       }
     }
     
-    //if (languages.includes(language)) {
+    if (languages.includes(language)) {
       this.updateElements();
-    //}
+    }
     this.#callChangeEvent("language", language);
   }
 
