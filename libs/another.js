@@ -1,3 +1,4 @@
+// https://superxnero.github.io/assets/libs/another.js
 let q = e=>document.querySelectorAll(e).length < 2?document.querySelector(e): document.querySelectorAll(e),
 qA = e=>document.querySelectorAll(e),
 e = e=>document.getElementById(e),
