@@ -206,7 +206,6 @@ class GitHubManager {
         "Authorization": `Bearer ${this.token}`
       }
     });
-
     if (response.ok) {
       const fileData = await response.json();
       const decodedContent = atob(fileData.content);
