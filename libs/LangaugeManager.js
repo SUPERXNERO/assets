@@ -1,5 +1,15 @@
 class LangaugeManager {
-  #changeEventsKeys = ["language", "baseUrl", "saveAll", "defaultLanguage", "changeToDefaultLanguage", "elements", "languagesContent", "textid", "textclass", "subtextid", "textupdatemethod"];
+  #changeEventsKeys = ["language",
+    "baseUrl",
+    "saveAll",
+    "defaultLanguage",
+    "changeToDefaultLanguage",
+    "elements",
+    "languagesContent",
+    "textid",
+    "textclass",
+    "subtextid",
+    "textupdatemethod"];
   constructor(settings = {}) {
     this.settings = settings;
     this.languagesContent = {};
@@ -366,7 +376,7 @@ class LangaugeManager {
     this.#callChangeEvent("elements", elements);
     return elements;
   }
-                                     }
+}
 export {
   LangaugeManager
 }
