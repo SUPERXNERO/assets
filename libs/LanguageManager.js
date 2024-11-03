@@ -103,25 +103,27 @@ class LanguageManager {
     }
     this.language = language;
     const langContent = this.getLangContent();
-    const dir = langContent.settings["dir"];
-    const fontFamily = langContent.settings["fontFamily"];
-    const className = langContent.settings["className"];
-    if (dir) {
-      const elements = this.reloadScanningElements(true);
-      elements.forEach((element)=> {
-        element.dir = dir;
-      });
-    }
-    if (fontFamily) {
-      root.style.fontFamily = fontFamily;
-    }
-    if (className) {
-      if (className === "{language}") {
-        root.className += ` ${value}Language`;
-      } else {
-        root.className += ` ${className}`;
+    if (langContent) {
+      const dir = langContent.settings["dir"];
+      const fontFamily = langContent.settings["fontFamily"];
+      const className = langContent.settings["className"];
+      if (dir) {
+        const elements = this.reloadScanningElements(true);
+        elements.forEach((element)=> {
+          element.dir = dir;
+        });
       }
-      root.className = Object.values(root.classList).join(" ");
+      if (fontFamily) {
+        root.style.fontFamily = fontFamily;
+      }
+      if (className) {
+        if (className === "{language}") {
+          root.className += ` ${value}Language`;
+        } else {
+          root.className += ` ${className}`;
+        }
+        root.className = Object.values(root.classList).join(" ");
+      }
     }
     this.updateElements();
     this.#callChangeEvent("language", language);
