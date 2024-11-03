@@ -121,7 +121,7 @@ class LanguageManager {
         }
         if (className) {
           if (className === "{language}") {
-            root.className += ` ${value}Language`;
+            root.className += ` ${this.language}Language`;
           } else {
             root.className += ` ${className}`;
           }
