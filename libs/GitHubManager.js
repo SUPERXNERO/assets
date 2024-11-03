@@ -223,5 +223,4 @@ export {
 - test using -
 
 const gitHubManager = new GitHubManager(`${access_token}`, `${username}`, `${repo}`);
-
 */
