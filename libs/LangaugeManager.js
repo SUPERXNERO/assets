@@ -107,8 +107,8 @@ class LanguageManager {
 
     const langContent = this.getLangContent();
     const dir = langContent.settings["dir"];
-    const fontFamily = langContent["*--fontFamily--*"];
-    const className = langContent["*--className--*"];
+    const fontFamily = langContent.settings["fontFamily"];
+    const className = langContent.settings["className"];
     if (dir) {
       const elements = Object.values(qA(`*`)).filter(e => e.dataset["textid"]);
       elements.forEach((element)=> {
