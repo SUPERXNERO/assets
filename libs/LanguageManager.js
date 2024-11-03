@@ -115,10 +115,10 @@ class LanguageManager {
           element.dir = dir;
         });
       }
-      if (fontFamily) {
+      if (fontFamily && root) {
         root.style.fontFamily = fontFamily;
       }
-      if (className) {
+      if (className && root) {
         if (className === "{language}") {
           root.className += ` ${value}Language`;
         } else {
