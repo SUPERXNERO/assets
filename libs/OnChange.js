@@ -1,3 +1,4 @@
+// https://superxnero.github.io/assets/libs/OnChange.js
 class OnChange {
   constructor(fun,
     value,
