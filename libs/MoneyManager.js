@@ -25,6 +25,9 @@ class MoneyManager {
       blog+social];
   }
 }
+export {
+  MoneyManager
+}
 /*
 - test using -
 
