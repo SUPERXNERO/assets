@@ -25,10 +25,14 @@ class MoneyManager {
       blog+social];
   }
 }
-/*const monthsElapsed = 1;
+/*
+- test using -
+
+const monthsElapsed = 1;
 const moneyManager = new MoneyManager({
   monthsElapsed: monthsElapsed,
   blogViews: 25,
   socialViews: 50,
   oldViews: 5
-});*/
+});
+*/
