@@ -102,9 +102,6 @@ class LanguageManager {
       console.warn("Selected language not available. Add language content first, then change language.");
     }
     this.language = language;
-
-
-
     const langContent = this.getLangContent();
     const dir = langContent.settings["dir"];
     const fontFamily = langContent.settings["fontFamily"];
@@ -126,9 +123,6 @@ class LanguageManager {
       }
       root.className = Object.values(root.classList).join(" ");
     }
-
-
-
     this.updateElements();
     this.#callChangeEvent("language", language);
   }
