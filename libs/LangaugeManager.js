@@ -1,15 +1,5 @@
-class LangaugeManager {
-  #changeEventsKeys = ["language",
-    "baseUrl",
-    "saveAll",
-    "defaultLanguage",
-    "changeToDefaultLanguage",
-    "elements",
-    "languagesContent",
-    "textid",
-    "textclass",
-    "subtextid",
-    "textupdatemethod"];
+class LanguageManager {
+  #changeEventsKeys = ["language", "baseUrl", "saveAll", "defaultLanguage", "changeToDefaultLanguage", "elements", "languagesContent", "textid", "textclass", "subtextid", "textupdatemethod"];
   constructor(settings = {}) {
     this.settings = settings;
     this.languagesContent = {};
@@ -47,7 +37,7 @@ class LangaugeManager {
         const json = await response.json();
         this.setLangContent(json, dontRemove);
       } else {
-        console.error("Failed to fetch language content.");
+        console.error("Failed to fetch language content. Status code:", response.status);
       }
     } catch (error) {
       console.error("Error fetching language content:", error);
@@ -60,7 +50,7 @@ class LangaugeManager {
 
   setLangContent(obj, dontRemove = false) {
     if (!obj || !obj.settings || !obj.settings.languageCode) {
-      console.error("Invalid language content object.");
+      console.error("Invalid language content object. Missing 'settings' or 'languageCode'.");
       return;
     }
     const languageCode = obj.settings.languageCode;
@@ -94,7 +84,7 @@ class LangaugeManager {
       language = this.defaultLanguage;
     }
     if (!languages.includes(language) && languages.length > 0) {
-      console.warn("Selected language not available, First add language content, Then change language");
+      console.warn("Selected language not available. Add language content first, then change language.");
     }
     this.language = language;
     this.updateElements();
@@ -111,7 +101,7 @@ class LangaugeManager {
       };
     }
     if (textoptions.constructor !== Object) {
-      // error
+      console.error("Invalid textoptions format. Expected an object or array.");
       return;
     }
     const {
@@ -141,9 +131,9 @@ class LangaugeManager {
   }
 
   getText(textid, isclass, subtextid, variableValue) {
-    const langContent = this.getLangContent().content;
+    const langContent = this.getLangContent()?.content;
     if (!langContent) {
-      // error
+      console.error("Language content not loaded. Unable to retrieve text.");
       return;
     }
     let result = langContent[textid];
@@ -181,7 +171,7 @@ class LangaugeManager {
       textoptions = this.parseTextOptions(textoptions);
     }
     if (textoptions.constructor !== Object) {
-      // error
+      console.error("Invalid textoptions format. Expected an object, string, or array.");
       return;
     }
     return this.getTextByClass(textoptions.textid, textoptions.subtextid);
@@ -193,9 +183,15 @@ class LangaugeManager {
 
   setTextId(textid, newtextid) {
     const elements = this.reloadScanningElements(true);
-    const element = elements.filter((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid)[0];
+    const element = elements.find((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid);
+    if (!element) {
+      console.warn(`Element with text ID '${textid}' not found.`);
+      return;
+    }
     let textoptions = this.getTextOptionsByElement(element);
-    let previous = textoptions;
+    let previous = {
+      ...textoptions
+    };
     textoptions["textid"] = newtextid;
     this.setTextOptions(textid, textoptions);
     this.#callChangeEvent("textid", {
@@ -206,15 +202,21 @@ class LangaugeManager {
 
   setIsClass(textid, newisclass) {
     const elements = this.reloadScanningElements(true);
-    const element = elements.filter((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid)[0];
+    const element = elements.find((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid);
+    if (!element) {
+      console.warn(`Element with text ID '${textid}' not found.`);
+      return;
+    }
     let textoptions = this.getTextOptionsByElement(element);
-    let previous = textoptions;
+    let previous = {
+      ...textoptions
+    };
     if (textoptions["isclass"] === newisclass) {
-      // error
+      console.warn("The isclass value is already set to the new value.");
       return;
     }
     if (!["false", "true"].includes(newisclass)) {
-      // error
+      console.error("Invalid isclass value. Expected 'true' or 'false'.");
       return;
     }
     textoptions["isclass"] = newisclass;
@@ -227,9 +229,15 @@ class LangaugeManager {
 
   setSubTextId(textid, newsubtextid) {
     const elements = this.reloadScanningElements(true);
-    const element = elements.filter((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid)[0];
+    const element = elements.find((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid);
+    if (!element) {
+      console.warn(`Element with text ID '${textid}' not found.`);
+      return;
+    }
     let textoptions = this.getTextOptionsByElement(element);
-    let previous = textoptions;
+    let previous = {
+      ...textoptions
+    };
     textoptions["subtextid"] = newsubtextid;
     this.setTextOptions(textid, textoptions);
     this.#callChangeEvent("subtextid", {
@@ -240,13 +248,20 @@ class LangaugeManager {
 
   setTextUpdateMethod(textid, newtextupdatemethod) {
     const elements = this.reloadScanningElements(true);
-    const element = elements.filter((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid)[0];
+    const element = elements.find((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid);
     let textoptions = this.getTextOptionsByElement(element);
     let previous = textoptions;
-    if (!element[newtextupdatemethod]) {
-      // error
+
+    if (!element) {
+      console.warn(`Element with text ID '${textid}' not found.`);
       return;
     }
+
+    if (!element[newtextupdatemethod]) {
+      console.error(`Invalid update method '${newtextupdatemethod}' for the element. Update method does not exist.`);
+      return;
+    }
+
     textoptions["textupdatemethod"] = newtextupdatemethod;
     this.setTextOptions(textid, textoptions);
     this.#callChangeEvent("textupdatemethod", {
@@ -257,23 +272,43 @@ class LangaugeManager {
 
   setTextOptions(textid, newtextoptions) {
     const elements = this.reloadScanningElements(true);
-    const element = elements.filter((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid)[0];
+    const element = elements.find((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid);
+
+    if (!element) {
+      console.warn(`Element with text ID '${textid}' not found. Unable to set text options.`);
+      return;
+    }
+
     element.dataset[this.settings.textOptionsName] = this.stringifyTextOptions(newtextoptions);
     this.reloadScanningElements();
   }
 
   getElementById(textid) {
     const elements = this.reloadScanningElements();
-    return elements.filter((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid)[0];
+    const element = elements.find((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid);
+
+    if (!element) {
+      console.warn(`No element found with text ID '${textid}'.`);
+    }
+
+    return element;
   }
 
   updateElement(textid) {
     const elements = this.reloadScanningElements();
-    const element = elements.filter((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid)[0];
-    const textupdatemethod = this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textupdatemethod;
+    const element = elements.find((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid);
+
+    if (!element) {
+      console.warn(`Element with text ID '${textid}' not found. Update skipped.`);
+      return;
+    }
+
+    let textupdatemethod = this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textupdatemethod;
     if (!element[textupdatemethod]) {
+      console.warn(`Invalid update method '${textupdatemethod}' for element. Using 'textContent' as fallback.`);
       textupdatemethod = "textContent";
     }
+
     element[textupdatemethod] = this.getTextByElement(element);
     this.reloadScanningElements();
   }
@@ -281,14 +316,15 @@ class LangaugeManager {
   updateElements(textclass) {
     let elements = this.reloadScanningElements();
     if (textclass) {
-      elements = elements.filter(function(element) {
+      elements = elements.filter((element) => {
         const textoptions = this.parseTextOptions(element.dataset[this.settings.textOptionsName]);
         return textoptions.isclass === "true" && textoptions.textid === textclass;
-      }, this);
+      });
     }
     elements.forEach((element) => {
-      const textupdatemethod = this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textupdatemethod;
+      let textupdatemethod = this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textupdatemethod;
       if (!element[textupdatemethod]) {
+        console.warn(`Invalid update method '${textupdatemethod}' for element. Using 'textContent' as fallback.`);
         textupdatemethod = "textContent";
       }
       element[textupdatemethod] = this.getTextByElement(element);
@@ -323,24 +359,32 @@ class LangaugeManager {
       this.settings.changeToDefaultLanguage = changeToDefaultLanguage;
       this.#callChangeEvent("changeToDefaultLanguage", changeToDefaultLanguage);
     } else {
-      console.error("Invalid value for changeToDefaultLanguage setting.");
+      console.error("Invalid value for changeToDefaultLanguage setting. Expected 'true' or 'false'.");
     }
   }
 
   setDefaultLanguage(defaultLanguage) {
     if (typeof defaultLanguage !== "string" || defaultLanguage.length < 1) {
-      // error
+      console.error("Invalid default language value. It must be a non-empty string.");
       return;
     }
     this.settings.defaultLanguage = defaultLanguage;
     this.#callChangeEvent("defaultLanguage", defaultLanguage);
   }
 
-  setTextOptionsName(textOptionsName) {
-    let reg = /^[a-z]+$/g;
+  setTextOptionsName(textOptionsName, changeToNewName) {
+    const reg = /^[a-z]+$/g;
     if (!reg.test(textOptionsName)) {
-      // error
+      console.error("Invalid text options name. It must contain only lowercase letters.");
       return;
+    }
+    if (changeToNewName) {
+      const elements = this.reloadScanningElements(true);
+      elements.forEach((element)=> {
+        const textoptions = element.dataset[this.settings.textOptionsName];
+        element.removeAttribute(`data-${this.settings.textOptionsName}`);
+        element.dataset[textOptionsName] = textoptions;
+      });
     }
     this.settings.textOptionsName = textOptionsName;
     this.reloadScanningElements();
@@ -348,7 +392,6 @@ class LangaugeManager {
 
   #callChangeEvent(key, changeData) {
     if (!this.changeEvents[key]) {
-      // error
       return;
     }
     this.changeEvents[key](changeData);
@@ -360,9 +403,15 @@ class LangaugeManager {
 
   setChangeEvent(key, fun) {
     if (!this.#changeEventsKeys.includes(key)) {
-      // error
+      console.error(`Invalid key: ${key}. Cannot set change event.`);
       return;
     }
+
+    if (typeof fun !== 'function') {
+      console.error(`Provided value for key ${key} is not a function.`);
+      return;
+    }
+
     this.changeEvents[key] = fun;
   }
 
@@ -376,7 +425,4 @@ class LangaugeManager {
     this.#callChangeEvent("elements", elements);
     return elements;
   }
-}
-export {
-  LangaugeManager
 }
