@@ -22,10 +22,11 @@ class OnChange {
     this.runInStart = value;
   }
 }
-
+/*
 - test using -
 
 const onChange = new OnChange(function(changedValue){
   console.log(changedValue);
 }, 1);
 onChange.change(onChange.value + 1);
+*/
