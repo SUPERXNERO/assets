@@ -295,7 +295,7 @@ class LanguageManager {
       return;
     }
 
-    if (!element[newtextupdatemethod]) {
+    if (element[newtextupdatemethod] === undefined) {
       console.error(`Invalid update method '${newtextupdatemethod}' for the element. Update method does not exist.`);
       return;
     }
@@ -342,7 +342,7 @@ class LanguageManager {
     }
 
     let textupdatemethod = this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textupdatemethod;
-    if (!element[textupdatemethod]) {
+    if (element[textupdatemethod] === undefined) {
       console.warn(`Invalid update method '${textupdatemethod}' for element. Using 'textContent' as fallback.`);
       textupdatemethod = "textContent";
     }
@@ -361,7 +361,7 @@ class LanguageManager {
     }
     elements.forEach((element) => {
       let textupdatemethod = this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textupdatemethod;
-      if (!element[textupdatemethod]) {
+      if (element[textupdatemethod] === undefined) {
         console.warn(`Invalid update method '${textupdatemethod}' for element. Using 'textContent' as fallback.`);
         textupdatemethod = "textContent";
       }
