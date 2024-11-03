@@ -1,4 +1,6 @@
 // https://superxnero.github.io/assets/libs/LanguageManager.js
+const root = document.documentElement;
+
 class LanguageManager {
   #changeEventsKeys = ["language",
     "baseUrl",
