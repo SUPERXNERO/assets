@@ -1,3 +1,4 @@
+// https://superxnero.github.io/assets/libs/LanguageManager.js
 class LanguageManager {
   #changeEventsKeys = ["language", "baseUrl", "saveAll", "defaultLanguage", "changeToDefaultLanguage", "elements", "languagesContent", "textid", "textclass", "subtextid", "textupdatemethod"];
   constructor(settings = {}) {
