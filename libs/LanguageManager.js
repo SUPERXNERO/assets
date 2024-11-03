@@ -115,19 +115,21 @@ class LanguageManager {
           element.dir = dir;
         });
       }
-      if (fontFamily && root) {
-        root.style.fontFamily = fontFamily;
-      }
-      if (className && root) {
-        if (className === "{language}") {
-          root.className += ` ${value}Language`;
-        } else {
-          root.className += ` ${className}`;
+      if (root) {
+        if (fontFamily) {
+          root.style.fontFamily = fontFamily;
         }
-        root.className = Object.values(root.classList).join(" ");
+        if (className) {
+          if (className === "{language}") {
+            root.className += ` ${value}Language`;
+          } else {
+            root.className += ` ${className}`;
+          }
+          root.className = Object.values(root.classList).join(" ");
+        }
       }
     }
-    
+
     if (languages.includes(language)) {
       this.updateElements();
     }
