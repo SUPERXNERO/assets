@@ -1,3 +1,4 @@
+https://superxnero.github.io/assets/libs/MoneyManager.js
 class MoneyManager {
   constructor({
     monthsElapsed, monthlyPostCount = 30, oldViews = 2, blogViews, socialViews, blogRPM = .004, socialRPM = .003
