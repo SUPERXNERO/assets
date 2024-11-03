@@ -1,3 +1,4 @@
+// https://superxnero.github.io/assets/libs/prototypes.js
 import * as an from 'https://superxnero.github.io/assets/libs/another.js';
 let c = (...e)=>e.length > 1 ? console.log(e.join(' | ')): console.log(e[0]);
 
