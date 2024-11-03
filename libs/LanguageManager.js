@@ -125,7 +125,10 @@ class LanguageManager {
         root.className = Object.values(root.classList).join(" ");
       }
     }
-    this.updateElements();
+    
+    if (languages.includes(language)) {
+      this.updateElements();
+    }
     this.#callChangeEvent("language", language);
   }
 
