@@ -55,7 +55,7 @@ class LanguageManager {
     }
   }
 
-  getAvailableLanguage() {
+  getAvailableLanguages() {
     return Object.keys(this.languagesContent);
   }
 
