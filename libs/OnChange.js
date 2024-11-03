@@ -22,6 +22,9 @@ class OnChange {
     this.runInStart = value;
   }
 }
+export {
+  OnChange
+}
 /*
 - test using -
 
