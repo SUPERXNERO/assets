@@ -110,7 +110,7 @@ class LanguageManager {
     const fontFamily = langContent.settings["fontFamily"];
     const className = langContent.settings["className"];
     if (dir) {
-      const elements = Object.values(qA(`*`)).filter(e => e.dataset["textid"]);
+      const elements = this.reloadScanningElements(true);
       elements.forEach((element)=> {
         element.dir = dir;
       });
