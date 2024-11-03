@@ -44,6 +44,12 @@ class LanguageManager {
       console.error("Error fetching language content:", error);
     }
   }
+  
+  language
+  
+  getAvailableLanguage() {
+    return Object.keys(this.languagesContent);
+  }
 
   getLangContent(language = this.language) {
     return this.languagesContent[language];
