@@ -240,6 +240,10 @@ class LanguageManager {
     let previous = {
       ...textoptions
     };
+    if (textoptions["textid"] === newtextid) {
+      console.warn("The textid value is already set to the new value.");
+      return;
+    }
     textoptions["textid"] = newtextid;
     this.setTextOptions(textid, textoptions);
     this.#callChangeEvent("textid", {
