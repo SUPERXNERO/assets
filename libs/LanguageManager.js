@@ -93,14 +93,6 @@ class LanguageManager {
   }
 
   async setLanguage(language) {
-    if (language === this.language) {
-      console.warn("The language is already set to the new language.");
-      if (languages.includes(language)) {
-        this.updateElements();
-      }
-      this.#callChangeEvent("language", language);
-      return;
-    }
     let languages = Object.keys(this.languagesContent);
     if (this.settings.baseUrl && !languages.includes(language)) {
       await this.setLangContentByUrl(this.settings.baseUrl + language + ".json");
