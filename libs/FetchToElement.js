@@ -8,3 +8,11 @@ class FetchToElement() {
     
   }
 }
+export {
+  FetchToElement
+}
+/*
+- test using -
+
+const languageManager = new LanguageManager();
+*/
