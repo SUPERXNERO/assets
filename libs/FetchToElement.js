@@ -3,4 +3,8 @@ class FetchToElement() {
   constructor() {
     
   }
+  
+  reloadFetching() {
+    
+  }
 }
