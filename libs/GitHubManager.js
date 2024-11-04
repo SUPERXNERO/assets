@@ -152,16 +152,33 @@ class GitHubManager {
 
   async renameFolder(oldPath, newPath) {
     if (!this.currentRepo) throw new Error("currentRepo is not set.");
-    const folderContents = await fetch(`${this.baseUrl}/repos/${this.username}/${this.currentRepo}/contents/${oldPath}`, {
+
+    const url = `${this.baseUrl}/repos/${this.username}/${this.currentRepo}/contents/${oldPath}`;
+    const folderContents = await fetch(url, {
       headers: {
         "Authorization": `Bearer ${this.token}`
       }
     }).then(res => res.json());
 
-    for (const item of folderContents) {
-      await this.createFileInFolder(`${newPath}/${item.name}`, atob(item.content));
-      await this.deletePath(`${oldPath}/${item.name}`);
+    if (!Array.isArray(folderContents)) {
+      throw new Error("Specified path is not a folder or folder is empty.");
     }
+
+    for (const item of folderContents) {
+      const fileContent = await fetch(item.url, {
+        headers: {
+          "Authorization": `Bearer ${this.token}`
+        }
+      }).then(res => res.json());
+
+      const newFilePath = `${newPath}/${item.name}`;
+      await this.createFileInFolder(newFilePath, atob(fileContent.content));
+      await this.deleteFile(`${oldPath}/${item.name}`);
+    }
+
+    await this.deleteFile(`${oldPath}/.gitkeep`).catch(() => {});
+
+    return `Folder renamed from ${oldPath} to ${newPath}`;
   }
 
   async updateFile(path, newName = null, newContent = null) {
