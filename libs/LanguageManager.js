@@ -42,10 +42,8 @@ class LanguageManager {
   }
 
   async setLangContentByUrl(url, dontRemove = false) {
-    console.log("url is: ", url);
     try {
       const response = await fetch(url);
-      console.log(response);
       if (response.ok) {
         const json = await response.json();
         this.setLangContent(json, dontRemove);
@@ -92,7 +90,6 @@ class LanguageManager {
   }
 
   async setLanguage(language) {
-    console.log("language is: ", language);
     let languages = Object.keys(this.languagesContent);
     if (typeof this.settings.baseUrl === "string" && !languages.includes(language)) {
       await this.setLangContentByUrl(this.settings.baseUrl + language + ".json");
