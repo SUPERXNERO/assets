@@ -4,8 +4,9 @@ class FetchToElement() {
     this.elements = this.reloadScanningElements(true);
   }
   
-  async reloadFetching(elements) {
+  reloadFetching(elements) {
     elements.forEach(async function(element) {
+      const fetchData = element.dataset["fetch"].split(",");
       
     });
   }
