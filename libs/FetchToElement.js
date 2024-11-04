@@ -4,8 +4,10 @@ class FetchToElement() {
     this.elements = this.reloadScanningElements(true);
   }
   
-  reloadFetching(elements) {
-    
+  async reloadFetching(elements) {
+    elements.forEach(async function(element) {
+      
+    });
   }
   reloadScanningElements(justReturn = false) {
     const elements = Array.from(document.querySelectorAll(`[data-fetch]`)).filter(
