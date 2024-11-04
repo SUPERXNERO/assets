@@ -100,7 +100,8 @@ class GitHubManager {
     return await this.createFileInFolder(filePath, "");
   }
 
-  async deletePath(path) {
+
+  async deleteFile(path) {
     if (!this.currentRepo) throw new Error("currentRepo is not set.");
     const url = `${this.baseUrl}/repos/${this.username}/${this.currentRepo}/contents/${path}`;
     const fileData = await fetch(url, {
@@ -108,9 +109,6 @@ class GitHubManager {
         "Authorization": `Bearer ${this.token}`
       }
     }).then(res => res.json());
-    
-    console.log(fileData);
-
     const response = await fetch(url, {
       method: "DELETE",
       headers: {
@@ -118,17 +116,38 @@ class GitHubManager {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: "Delete path",
+        message: "Delete file",
         sha: fileData.sha
       })
     });
-
     if (response.ok) {
       return await response.json();
     } else {
       const error = await response.json();
       throw new Error(error.message);
     }
+  }
+
+  async deleteFolder(folderPath) {
+    if (!this.currentRepo) throw new Error("currentRepo is not set.");
+    const url = `${this.baseUrl}/repos/${this.username}/${this.currentRepo}/contents/${folderPath}`;
+    const folderContents = await fetch(url, {
+      headers: {
+        "Authorization": `Bearer ${this.token}`
+      }
+    }).then(res => res.json());
+    if (!Array.isArray(folderContents)) {
+      throw new Error("Specified path is not a folder or folder is empty.");
+    }
+    for (const item of folderContents) {
+      if (item.type === "dir") {
+        await this.deleteFolder(`${folderPath}/${item.name}`);
+      } else {
+        await this.deleteFile(`${folderPath}/${item.name}`);
+      }
+    }
+    // Remove the folder itself by deleting a placeholder file (e.g., .gitkeep)
+    await this.deleteFile(`${folderPath}/.gitkeep`);
   }
 
   async renameFolder(oldPath, newPath) {
