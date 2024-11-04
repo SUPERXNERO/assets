@@ -1,10 +1,12 @@
 // https://superxnero.github.io/assets/libs/startClean.js
+
 const q = (e)=> document.querySelector(e);
 const qA = (e)=> document.querySelectorAll(e);
 const root = document.documentElement;
 const head = document.head;
 const body = document.body;
 const realPage = q("#realPage");
+
 function deepClean(element) {
   if (element.contains(realPage) && element !== realPage) {
     element.removeAttribute("class");
