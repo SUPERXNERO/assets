@@ -14,5 +14,5 @@ export {
 /*
 - test using -
 
-const languageManager = new LanguageManager();
+const fetchToElement = new FetchToElement();
 */
