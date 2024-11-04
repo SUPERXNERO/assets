@@ -95,6 +95,7 @@ class LanguageManager {
   }
 
   async setLanguage(language) {
+    console.log("language is: ", language);
     let languages = Object.keys(this.languagesContent);
     if (this.settings.baseUrl && !languages.includes(language)) {
       await this.setLangContentByUrl(this.settings.baseUrl + language + ".json");
