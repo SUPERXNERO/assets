@@ -1,5 +1,5 @@
 // https://superxnero.github.io/assets/libs/FetchToElement.js
-class FetchToElement() {
+class FetchToElement {
   constructor(reloadFetching) {
     this.elements = this.reloadScanningElements(true);
     if (reloadFetching === true) {
