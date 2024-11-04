@@ -3,11 +3,17 @@ class FetchToElement() {
   constructor() {
     this.elements = this.reloadScanningElements(true);
   }
-  
   reloadFetching(elements) {
+    if (!elements) {
+      elements = this.reloadScanningElements();
+    }
     elements.forEach(async function(element) {
       const fetchData = element.dataset["fetch"].split(",");
-      
+      const fetchUrl = fetchData[0];
+      const fetchInsertMethod = fetchData[1] || "innerHTML";
+      const response = await fetch(fetchUrl);
+      const text = await response.text();
+      element[fetchInsertMethod] = text;
     });
   }
   reloadScanningElements(justReturn = false) {
