@@ -38,7 +38,6 @@ class LanguageManager {
     if (typeof settings.textOptionsName !== "string" || settings.textOptionsName.length < 1) {
       this.setTextOptionsName("textoptions");
     }
-    console.log(this.settings.defaultLanguage);
     this.setLanguage(this.settings.defaultLanguage);
     if (this.settings.baseUrl) {
       this.setLangContentByUrl(this.settings.baseUrl + this.language + ".json");
