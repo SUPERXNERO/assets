@@ -111,7 +111,7 @@ class GitHubManager {
     
     console.log(fileData);
 
-    const response = await fetch(url, {
+    /*const response = await fetch(url, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${this.token}`,
@@ -128,7 +128,7 @@ class GitHubManager {
     } else {
       const error = await response.json();
       throw new Error(error.message);
-    }
+    }*/
   }
 
   async renameFolder(oldPath, newPath) {
