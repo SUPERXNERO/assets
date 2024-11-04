@@ -1,4 +1,4 @@
-// https://superxnero.github.io/assets/libs/another.js
+// https://superxnero.github.io/assets/libs/FetchToElement.js
 class FetchToElement() {
   constructor() {
     this.elements = this.reloadScanningElements(true);
