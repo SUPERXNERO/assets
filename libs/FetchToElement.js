@@ -7,6 +7,16 @@ class FetchToElement() {
   reloadFetching() {
     
   }
+  reloadScanningElements(justReturn = false) {
+    const elements = Array.from(document.querySelectorAll(`[data-fetch]`)).filter(
+      (e) => e.dataset[this.settings.textOptionsName]
+    );
+    if (!justReturn) {
+      this.elements = elements;
+    }
+    this.#callChangeEvent("elements", elements);
+    return elements;
+  }
 }
 export {
   FetchToElement
