@@ -108,6 +108,8 @@ class GitHubManager {
         "Authorization": `Bearer ${this.token}`
       }
     }).then(res => res.json());
+    
+    console.log(fileData);
 
     const response = await fetch(url, {
       method: "DELETE",
