@@ -1,20 +1,19 @@
 // https://superxnero.github.io/assets/libs/another.js
 class FetchToElement() {
   constructor() {
-    this.elements = reloadScanningElements();
+    this.elements = this.reloadScanningElements(true);
   }
   
-  reloadFetching() {
+  reloadFetching(elements) {
     
   }
   reloadScanningElements(justReturn = false) {
     const elements = Array.from(document.querySelectorAll(`[data-fetch]`)).filter(
-      (e) => e.dataset[this.settings.textOptionsName]
+      (e) => e.dataset["fetch"]
     );
     if (!justReturn) {
       this.elements = elements;
     }
-    this.#callChangeEvent("elements", elements);
     return elements;
   }
 }
