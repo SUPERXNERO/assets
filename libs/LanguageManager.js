@@ -40,7 +40,6 @@ class LanguageManager {
     }
     this.setLanguage(this.settings.defaultLanguage);
     if (this.settings.baseUrl) {
-      console.log(this.settings.baseUrl + this.language + ".json");
       this.setLangContentByUrl(this.settings.baseUrl + this.language + ".json");
     }
   }
