@@ -51,3 +51,4 @@ function startClean() {
     }, 0);
   });
 }
+export default startClean;
