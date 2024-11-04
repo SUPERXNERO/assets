@@ -119,7 +119,7 @@ class GitHubManager {
       },
       body: JSON.stringify({
         message: "Delete path",
-        //sha: fileData.sha
+        sha: fileData.sha
       })
     });
 
