@@ -394,11 +394,7 @@ class LanguageManager {
 
   setBaseUrl(baseUrl) {
     if (typeof baseUrl !== "string" && baseUrl !== null) {
-      console.error("Invalid value for baseUrl: Not string!");
-      return;
-    }
-    if (baseUrl?.length < 1 && baseUrl !== null) {
-      console.error("Invalid value for baseUrl: Empty value!");
+      console.error("Invalid value for baseUrl");
       return;
     }
     this.settings.baseUrl = baseUrl;
