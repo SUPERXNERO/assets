@@ -39,7 +39,7 @@ class LanguageManager {
       this.setTextOptionsName("textoptions");
     }
     this.setLanguage(this.settings.defaultLanguage);
-    if (this.settings.baseUrl) {
+    if (typeof this.settings.baseUrl === "string" && this.settings.baseUrl) {
       this.setLangContentByUrl(this.settings.baseUrl + this.language + ".json");
     }
   }
