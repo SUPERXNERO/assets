@@ -1,3 +1,4 @@
+// https://superxnero.github.io/assets/libs/startClean.js
 function deepClean(element) {
   if (element.contains(realPage) && element !== realPage) {
     element.removeAttribute("class");
