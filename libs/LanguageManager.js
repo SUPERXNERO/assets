@@ -47,6 +47,7 @@ class LanguageManager {
   async setLangContentByUrl(url, dontRemove = false) {
     try {
       const response = await fetch(url);
+      console.log(response);
       if (response.ok) {
         const json = await response.json();
         this.setLangContent(json, dontRemove);
