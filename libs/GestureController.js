@@ -13,5 +13,5 @@ export {
 /*
 - test using -
 
-const gitHubManager = new GitHubManager(`${access_token}`, `${username}`, `${repo}`);
+const GestureController = new GestureController(element, handlers);
 */
