@@ -4,18 +4,53 @@ class GestureController {
     this.element = element;
     this.handlers = handlers;
     
-    // Bind events
     this.initEvents();
   }
   
   initEvents() {
-    this.element.addEventListener('mousedown', this.onMouseDown);
-    this.element.addEventListener('mouseup', this.onMouseUp);
-    this.element.addEventListener('mousemove', this.onMouseMove);
+    this.element.addEventListener('mousedown', this.onMouseDown.bind(this));
+    this.element.addEventListener('mouseup', this.onMouseUp.bind(this));
+    this.element.addEventListener('mousemove', this.onMouseMove.bind(this));
 
-    this.element.addEventListener('touchstart', this.onTouchStart);
-    this.element.addEventListener('touchend', this.onTouchEnd);
-    this.element.addEventListener('touchmove', this.onTouchMove);
+    this.element.addEventListener('touchstart', this.onTouchStart.bind(this));
+    this.element.addEventListener('touchend', this.onTouchEnd.bind(this));
+    this.element.addEventListener('touchmove', this.onTouchMove.bind(this));
+  }
+  
+  onMouseDown(event) {
+    if (typeof this.handlers.onMouseDown === 'function') {
+      this.handlers.onMouseDown(event);
+    }
+  }
+
+  onMouseUp(event) {
+    if (typeof this.handlers.onMouseUp === 'function') {
+      this.handlers.onMouseUp(event);
+    }
+  }
+
+  onMouseMove(event) {
+    if (typeof this.handlers.onMouseMove === 'function') {
+      this.handlers.onMouseMove(event);
+    }
+  }
+
+  onTouchStart(event) {
+    if (typeof this.handlers.onTouchStart === 'function') {
+      this.handlers.onTouchStart(event);
+    }
+  }
+
+  onTouchEnd(event) {
+    if (typeof this.handlers.onTouchEnd === 'function') {
+      this.handlers.onTouchEnd(event);
+    }
+  }
+
+  onTouchMove(event) {
+    if (typeof this.handlers.onTouchMove === 'function') {
+      this.handlers.onTouchMove(event);
+    }
   }
 }
 export {
