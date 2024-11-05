@@ -1,6 +1,6 @@
 // https://superxnero.github.io/assets/libs/GestureController.js
 class GestureController {
-  constructor(token, handlers={}) {
+  constructor(element, handlers={}) {
     this.element = element;
     this.handlers = handlers;
     this.element = ;
