@@ -3,6 +3,7 @@ class GestureController {
   constructor(token, handlers={}) {
     this.element = element;
     this.handlers = handlers;
+    this.element = ;
   }
   
 }
