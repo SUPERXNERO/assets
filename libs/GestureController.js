@@ -9,13 +9,13 @@ class GestureController {
   }
   
   initEvents() {
-    this.element.addEventListener('mousedown', GestureCallbacks.onMouseDown);
-    this.element.addEventListener('mouseup', GestureCallbacks.onMouseUp);
-    this.element.addEventListener('mousemove', GestureCallbacks.onMouseMove);
+    this.element.addEventListener('mousedown', this.onMouseDown);
+    this.element.addEventListener('mouseup', this.onMouseUp);
+    this.element.addEventListener('mousemove', this.onMouseMove);
 
-    this.element.addEventListener('touchstart', GestureCallbacks.onTouchStart);
-    this.element.addEventListener('touchend', GestureCallbacks.onTouchEnd);
-    this.element.addEventListener('touchmove', GestureCallbacks.onTouchMove);
+    this.element.addEventListener('touchstart', this.onTouchStart);
+    this.element.addEventListener('touchend', this.onTouchEnd);
+    this.element.addEventListener('touchmove', this.onTouchMove);
   }
 }
 export {
