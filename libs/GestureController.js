@@ -3,7 +3,9 @@ class GestureController {
   constructor(element, handlers = {}) {
     this.element = element;
     this.handlers = handlers;
-    this.element.addEventListener()
+    
+    // Bind events
+    this.initEvents();
   }
   
   initEvents() {
@@ -49,15 +51,6 @@ const GestureCallbacks = {
     // التعامل مع حدث حركة اللمس
   }
 };
-
-class GestureController {
-  constructor(element) {
-    this.element = element;
-
-    // Bind events
-    this.initEvents();
-  }
-}
 
 
 
