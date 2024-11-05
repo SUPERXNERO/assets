@@ -4,7 +4,6 @@ class GestureController {
     this.element = element;
     this.handlers = handlers;
   }
-
   
 }
 export {
