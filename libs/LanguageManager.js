@@ -141,6 +141,8 @@ class LanguageManager {
         subtextid: textoptions[2],
         textupdatemethod: textoptions[3]
       };
+    } else if (typeof textoptions === "string") {
+      
     }
     if (textoptions.constructor !== Object) {
       console.error("Invalid textoptions format. Expected an object or array.");
