@@ -142,13 +142,7 @@ class LanguageManager {
         textupdatemethod: textoptions[3]
       };
     } else if (typeof textoptions === "string") {
-      textoptions = textoptions.split(",");
-      textoptions = {
-        textid: textoptions[0],
-        isclass: textoptions[1],
-        subtextid: textoptions[2],
-        textupdatemethod: textoptions[3]
-      }
+      textoptions = parseTextOptions(textoptions);
     }
     if (textoptions.constructor !== Object) {
       console.error("Invalid textoptions format. Expected an object or array.");
