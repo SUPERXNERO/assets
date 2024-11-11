@@ -328,9 +328,8 @@ class LanguageManager {
       console.warn(`Element with text ID '${textid}' not found. Unable to set text options.`);
       return;
     }
-    
     let previous = {
-      ...textoptions
+      ...this.getTextOptionsByElement(element)
     };
 
     element.dataset[this.settings.textOptionsName] = this.stringifyTextOptions(newtextoptions);
