@@ -324,7 +324,7 @@ class LanguageManager {
     if (typeof newtextoptions === "string") {
       newtextoptions = this.parseTextOptions(newtextoptions);
     }
-    
+
     const elements = this.reloadScanningElements(true);
     const element = elements.find((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid);
 
@@ -333,10 +333,10 @@ class LanguageManager {
       return;
     }
     let textoptions = this.getTextOptionsByElement(element);
-    newtextoptions.textid = newtextoptions.textid || textoptions.textid;
-    newtextoptions.isclass = newtextoptions.isclass || textoptions.isclass;
-    newtextoptions.subtextid = newtextoptions.subtextid || textoptions.subtextid;
-    newtextoptions.textupdatemethod = newtextoptions.textupdatemethod || textoptions.textupdatemethod;
+    newtextoptions.textid = newtextoptions.textid !== "" ? newtextoptions.textid: textoptions.textid;
+    newtextoptions.isclass = newtextoptions.isclass !== "" ? newtextoptions.isclass: textoptions.isclass;
+    newtextoptions.subtextid = newtextoptions.subtextid !== "" ? newtextoptions.subtextid: textoptions.subtextid;
+    newtextoptions.textupdatemethod = newtextoptions.textupdatemethod !== "" ? newtextoptions.textupdatemethod: textoptions.textupdatemethod;
 
     element.dataset[this.settings.textOptionsName] = this.stringifyTextOptions(newtextoptions);
     this.reloadScanningElements();
