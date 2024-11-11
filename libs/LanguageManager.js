@@ -329,7 +329,7 @@ class LanguageManager {
       return;
     }
     let textoptions = this.getTextOptionsByElement(element);
-    console.log(newtextoptions);
+    newtextoptions = this.parseTextOptions(newtextoptions);
     newtextoptions.textid = newtextoptions.textid || textoptions.textid;
     newtextoptions.isclass = newtextoptions.isclass || textoptions.isclass;
     newtextoptions.subtextid = newtextoptions.subtextid || textoptions.subtextid;
