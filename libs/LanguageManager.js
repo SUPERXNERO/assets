@@ -327,6 +327,7 @@ class LanguageManager {
 
     element.dataset[this.settings.textOptionsName] = this.stringifyTextOptions(newtextoptions);
     this.reloadScanningElements();
+    this.updateElement(textid);
   }
 
   getElementById(textid) {
