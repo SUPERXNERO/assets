@@ -298,7 +298,9 @@ class LanguageManager {
     const elements = this.reloadScanningElements(true);
     const element = elements.find((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid);
     let textoptions = this.getTextOptionsByElement(element);
-    let previous = textoptions;
+    let previous = {
+      ...textoptions
+    };
 
     if (!element) {
       console.warn(`Element with text ID '${textid}' not found.`);
@@ -326,6 +328,10 @@ class LanguageManager {
       console.warn(`Element with text ID '${textid}' not found. Unable to set text options.`);
       return;
     }
+    
+    let previous = {
+      ...textoptions
+    };
 
     element.dataset[this.settings.textOptionsName] = this.stringifyTextOptions(newtextoptions);
     this.reloadScanningElements();
