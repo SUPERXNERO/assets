@@ -329,6 +329,10 @@ class LanguageManager {
       return;
     }
     let textoptions = this.getTextOptionsByElement(element);
+    newtextoptions.textid = newtextoptions.textid || textoptions.textid;
+    newtextoptions.isclass = newtextoptions.isclass || textoptions.isclass;
+    newtextoptions.subtextid = newtextoptions.subtextid || textoptions.subtextid;
+    newtextoptions.textupdatemethod = newtextoptions.textupdatemethod || textoptions.textupdatemethod;
 
     element.dataset[this.settings.textOptionsName] = this.stringifyTextOptions(newtextoptions);
     this.reloadScanningElements();
