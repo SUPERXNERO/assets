@@ -320,7 +320,7 @@ class LanguageManager {
     });
   }
 
-  setTextOptions(textid, newtextoptions) {
+  setTextOptions(textid, newtextoptions, update=true) {
     if (typeof newtextoptions === "string") {
       newtextoptions = this.parseTextOptions(newtextoptions);
     }
@@ -340,7 +340,9 @@ class LanguageManager {
 
     element.dataset[this.settings.textOptionsName] = this.stringifyTextOptions(newtextoptions);
     this.reloadScanningElements();
-    this.updateElement(textid);
+    if (update) {
+      this.updateElement(textid);
+    }
   }
 
   getElementById(textid) {
