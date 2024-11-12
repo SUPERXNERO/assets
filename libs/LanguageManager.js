@@ -19,6 +19,9 @@ class LanguageManager {
     this.languagesContent = {};
     this.changeEvents = {};
     this.elements = this.reloadScanningElements(true);
+    if (settings.changeEvents.constructor === Object) {
+      this.changeEvents = settings.changeEvents;
+    }
     if (typeof settings.saveAll !== "boolean") {
       this.setSaveAll(true);
     }
