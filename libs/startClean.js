@@ -36,7 +36,9 @@ function deleteStyles_Scripts() {
 }
 
 function deleteElements() {
-  const allElements = Array.from(body.querySelectorAll("*"));
+  let allElements = Array.from(body.querySelectorAll("*"));
+  allElements.splice(allElements.length-1, 0, body);
+  allElements.splice(allElements.length-1, 0, root);
   allElements.forEach(deepClean);
 }
 
