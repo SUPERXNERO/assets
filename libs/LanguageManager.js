@@ -25,7 +25,7 @@ class LanguageManager {
     if (settings.languagesContent.constructor === Object) {
       const languagesContent = Object.values(settings.languagesContent);
       languagesContent.forEach((languageContent)=>{
-        
+        this.setLangContent(languageContent);
       });
     }
     if (typeof settings.saveAll !== "boolean") {
