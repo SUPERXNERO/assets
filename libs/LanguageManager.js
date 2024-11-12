@@ -115,6 +115,7 @@ class LanguageManager {
       }
       if (root) {
         if (fontFamily) {
+          console.log(fontFamily);
           root.style.fontFamily = fontFamily;
         }
         if (className) {
