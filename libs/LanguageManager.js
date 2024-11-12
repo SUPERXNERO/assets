@@ -368,8 +368,9 @@ class LanguageManager {
       console.warn(`Invalid update method '${textupdatemethod}' for element. Using 'textContent' as fallback.`);
       textupdatemethod = "textContent";
     }
-
-    element[textupdatemethod] = this.getTextByElement(element);
+    
+    const textoptions = this.getTextOptionsByElement(element);
+    element[textupdatemethod] = this.getText(textoptions.textid, textoptions.isclass, textoptions.subtextid, variableValue);
     this.reloadScanningElements();
   }
 
