@@ -354,7 +354,7 @@ class LanguageManager {
     return element;
   }
 
-  updateElement(textid) {
+  updateElement(textid, variableValue) {
     const elements = this.reloadScanningElements(true);
     const element = elements.find((element) => this.parseTextOptions(element.dataset[this.settings.textOptionsName]).textid === textid);
 
