@@ -22,7 +22,7 @@ class LanguageManager {
     if (settings.changeEvents.constructor === Object) {
       this.changeEvents = settings.changeEvents;
     }
-    if (settings.languagesContent.constructor === Object) {
+    if (settings.languagesContent?.constructor === Object) {
       const languagesContent = Object.values(settings.languagesContent);
       languagesContent.forEach((languageContent)=>{
         this.setLangContent(languageContent);
