@@ -333,11 +333,10 @@ class LanguageManager {
       return;
     }
     let textoptions = this.getTextOptionsByElement(element);
-    console.log(newtextoptions);
-    newtextoptions.textid = newtextoptions.textid !== "" ? newtextoptions.textid: textoptions.textid;
-    newtextoptions.isclass = newtextoptions.isclass !== "" ? newtextoptions.isclass: textoptions.isclass;
-    newtextoptions.subtextid = newtextoptions.subtextid !== "" ? newtextoptions.subtextid: textoptions.subtextid;
-    newtextoptions.textupdatemethod = newtextoptions.textupdatemethod !== "" ? newtextoptions.textupdatemethod: textoptions.textupdatemethod;
+    newtextoptions.textid = newtextoptions.textid !== undefined ? newtextoptions.textid: textoptions.textid;
+    newtextoptions.isclass = newtextoptions.isclass !== undefined ? newtextoptions.isclass: textoptions.isclass;
+    newtextoptions.subtextid = newtextoptions.subtextid !== undefined ? newtextoptions.subtextid: textoptions.subtextid;
+    newtextoptions.textupdatemethod = newtextoptions.textupdatemethod !== undefined ? newtextoptions.textupdatemethod: textoptions.textupdatemethod;
 
     element.dataset[this.settings.textOptionsName] = this.stringifyTextOptions(newtextoptions);
     this.reloadScanningElements();
