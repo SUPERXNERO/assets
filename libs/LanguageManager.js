@@ -333,7 +333,7 @@ class LanguageManager {
       return;
     }
     let textoptions = this.getTextOptionsByElement(element);
-    console.log(newtextoptions.textid !== "");
+    console.log(newtextoptions);
     newtextoptions.textid = newtextoptions.textid !== "" ? newtextoptions.textid: textoptions.textid;
     newtextoptions.isclass = newtextoptions.isclass !== "" ? newtextoptions.isclass: textoptions.isclass;
     newtextoptions.subtextid = newtextoptions.subtextid !== "" ? newtextoptions.subtextid: textoptions.subtextid;
