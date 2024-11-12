@@ -19,7 +19,7 @@ class LanguageManager {
     this.languagesContent = {};
     this.changeEvents = {};
     this.elements = this.reloadScanningElements(true);
-    if (settings.changeEvents.constructor === Object) {
+    if (settings.changeEvents?.constructor === Object) {
       this.changeEvents = settings.changeEvents;
     }
     if (settings.languagesContent?.constructor === Object) {
