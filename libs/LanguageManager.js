@@ -109,7 +109,7 @@ class LanguageManager {
       language = this.defaultLanguage;
     }
     if (!languages.includes(language) && languages.length > 0) {
-      console.warn("Selected language not available. Add language content first, then change language.");
+      console.warn("Selected language not available. Add language content, to get changes.");
     }
     this.language = language;
     const langContent = this.getLangContent();
@@ -475,12 +475,10 @@ class LanguageManager {
       console.error(`Invalid key: ${key}. Cannot set change event.`);
       return;
     }
-
     if (typeof fun !== 'function') {
       console.error(`Provided value for key ${key} is not a function.`);
       return;
     }
-
     this.changeEvents[key] = fun;
   }
 
