@@ -483,9 +483,7 @@ class LanguageManager {
   }
 
   reloadScanningElements(justReturn = false) {
-    const elements = Array.from(document.querySelectorAll(`[data-${this.settings.textOptionsName}]`)).filter(
-      (e) => e.dataset[this.settings.textOptionsName]
-    );
+    const elements = Array.from(document.querySelectorAll(`[data-${this.settings.textOptionsName}]`));
     if (!justReturn) {
       this.elements = elements;
     }
