@@ -114,12 +114,36 @@ class ThemeManager {
     if (!this.themesContent[theme]) {
       return;
     }
-    var themeContent = this.themesContent[theme];
-    Object.keys(themeContent.content).forEach((key, index) => {
-      const value = Object.values(themeContent.content)[index];
+    const themeContent = this.themesContent[theme];
+    
+    const variables = themeContent.content.variables || {};
+    const classes = themeContent.content.classes || {};
+    const datasets = themeContent.content.datasets || {};
+    Object.keys(variables).forEach((key, index) => {
+      const value = Object.values(variables)[index];
       if (value) {
         root.style.setProperty(`--theme-${key}`, value);
       }
+    });
+    Object.keys(classes).forEach((key, index) => {
+      const elements = document.querySelectorAll(key);
+      const value = Object.values(classes)[index];
+      elements.forEach((element) => {
+        if (value.add) {
+          Object.keys(value.add).forEach((key, index) => {
+            const value = Object.values(value.add)[index];
+            element.setAttribute(`data-${key}`, value);
+          });
+        }
+        if (value.remove) {
+          if (typeof value.remove === "string") {
+            value.remove = value.remove.split(" ");
+          }
+          value.remove.forEach((key) => {
+            element.removeAttribute(`data-${key}`);
+          });
+        }
+      });
     });
     const dir = themeContent.settings["dir"];
     const fontFamily = themeContent.settings["fontFamily"];
