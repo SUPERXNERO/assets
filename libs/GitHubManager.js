@@ -48,14 +48,20 @@ class GitHubManager {
     }
   }
 
-  async getRepoContents(repo = this.currentRepo) {
+  async getRepoContents(repo = this.currentRepo, withToken = true) {
     if (!repo) throw new Error("currentRepo is not set.");
     const url = `${this.baseUrl}/repos/${this.username}/${repo}/contents`;
-    const response = await fetch(url, {
-      headers: {
-        "Authorization": `Bearer ${this.token}`
-      }
-    });
+    
+    let response;
+    if (withToken) {
+      response = await fetch(url, {
+        headers: {
+          "Authorization": `Bearer ${this.token}`
+        }
+      });
+    } else {
+      response = await fetch(url);
+    }
 
     if (response.ok) {
       return await response.json();
@@ -255,15 +261,20 @@ class GitHubManager {
     }
   }
 
-  async getDirectoryContents(directoryPath = '') {
+  async getDirectoryContents(directoryPath = '', withToken = true) {
     if (!this.currentRepo) throw new Error("currentRepo is not set.");
     const url = `${this.baseUrl}/repos/${this.username}/${this.currentRepo}/contents/${directoryPath}`;
 
-    const response = await fetch(url, {
-      headers: {
-        "Authorization": `Bearer ${this.token}`
-      }
-    });
+    let response;
+    if (withToken) {
+      response = await fetch(url, {
+        headers: {
+          "Authorization": `Bearer ${this.token}`
+        }
+      });
+    } else {
+      response = await fetch(url);
+    }
 
     if (response.ok) {
       return await response.json();
