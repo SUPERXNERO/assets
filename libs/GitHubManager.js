@@ -48,7 +48,8 @@ class GitHubManager {
     }
   }
 
-  async getRepoContents(repo = this.currentRepo, withToken = true) {
+  async getRepoContents(repo = true, withToken = true) {
+    if (repo === true) repo = this.currentRepo;
     if (!repo) throw new Error("currentRepo is not set.");
     const url = `${this.baseUrl}/repos/${this.username}/${repo}/contents`;
     
