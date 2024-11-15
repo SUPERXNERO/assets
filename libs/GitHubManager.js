@@ -254,6 +254,24 @@ class GitHubManager {
       throw new Error(error.message);
     }
   }
+
+  async getDirectoryContents(directoryPath = '') {
+    if (!this.currentRepo) throw new Error("currentRepo is not set.");
+    const url = `${this.baseUrl}/repos/${this.username}/${this.currentRepo}/contents/${directoryPath}`;
+
+    const response = await fetch(url, {
+      headers: {
+        "Authorization": `Bearer ${this.token}`
+      }
+    });
+
+    if (response.ok) {
+      return await response.json();
+    } else {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+  }
 }
 export {
   GitHubManager
