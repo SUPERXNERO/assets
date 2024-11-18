@@ -14,6 +14,7 @@ class LanguageManager {
     "textclass",
     "subtextid",
     "textupdatemethod"];
+  #classes = [];
   constructor(settings = {}) {
     this.settings = settings;
     this.languagesContent = {};
@@ -24,7 +25,7 @@ class LanguageManager {
     }
     if (settings.languagesContent?.constructor === Object) {
       const languagesContent = Object.values(settings.languagesContent);
-      languagesContent.forEach((languageContent)=>{
+      languagesContent.forEach((languageContent)=> {
         this.setLangContent(languageContent);
       });
     }
@@ -117,6 +118,8 @@ class LanguageManager {
       const dir = langContent.settings["dir"];
       const fontFamily = langContent.settings["fontFamily"];
       const className = langContent.settings["className"];
+      const dataset = langContent.settings["dataset"];
+      const dontRemoveClasses = langContent.settings["dontRemoveClasses"] || false;
       if (dir) {
         const elements = this.reloadScanningElements(true);
         elements.forEach((element)=> {
@@ -128,12 +131,25 @@ class LanguageManager {
           root.style.fontFamily = fontFamily;
         }
         if (className) {
+          if (dontRemoveClasses !== true) {
+            root.className = Object.values(root.classList).filter((className)=> !this.#classes.includes(className)).join(" ");
+          }
           if (className === "{language}") {
             root.className += ` ${this.language}Language`;
+            this.#classes.push(`${this.language}Language`);
           } else {
             root.className += ` ${className}`;
+            this.#classes.push(className);
           }
           root.className = Object.values(root.classList).join(" ");
+          
+        }
+        if (dataset) {
+          if (dataset === "{language}") {
+            root.dataset.language = this.language;
+          } else {
+            root.dataset.language = dataset;
+          }
         }
       }
     }
@@ -330,7 +346,7 @@ class LanguageManager {
     });
   }
 
-  setTextOptions(textid, newtextoptions, update=true) {
+  setTextOptions(textid, newtextoptions, update = true) {
     if (typeof newtextoptions === "string") {
       newtextoptions = this.parseTextOptions(newtextoptions);
     }
@@ -380,7 +396,7 @@ class LanguageManager {
       console.warn(`Invalid update method '${textupdatemethod}' for element. Using 'textContent' as fallback.`);
       textupdatemethod = "textContent";
     }
-    
+
     const textoptions = this.getTextOptionsByElement(element);
     element[textupdatemethod] = this.getText(textoptions.textid, textoptions.isclass, textoptions.subtextid, variableValue);
     this.reloadScanningElements();
