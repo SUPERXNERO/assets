@@ -44,8 +44,8 @@ function deleteElements() {
 
 function startClean() {
   return new Promise((resolve, rejected)=> {
-    deleteStyles_Scripts();
     body.classList.add("ds-none");
+    deleteStyles_Scripts();
     setTimeout(function() {
       deleteStyles_Scripts();
       setTimeout(function() {
