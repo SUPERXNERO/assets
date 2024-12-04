@@ -147,14 +147,14 @@ header {
 }
 
 /* ready css properties */
-.sx-button {
+.sxButton {
   border: 2px solid transparent;
   text-wrap: nowrap;
   padding: 6px;
   background: var(--theme-box3);
   transition: .2s;
 }
-.sx-button:active {
+.sxButton:active {
   filter: brightness(1.5);
   border-color: var(--theme-color2);
   transform: scale(.95);
