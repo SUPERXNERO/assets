@@ -44,7 +44,8 @@ header {
   background: var(--theme-box2);
   border: 2px solid transparent;
   padding: 6px;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1/1 !important;
+  overflow: hidden;
   transition: .2s;
 }
 #openSidebar:active {
