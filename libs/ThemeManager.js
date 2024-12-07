@@ -46,6 +46,7 @@ class ThemeManager {
     try {
       const response = await fetch(url);
       console.log(response);
+      console.log(url);
       if (response.ok) {
         const json = await response.json();
         this.setThemeContent(json, dontRemove);
