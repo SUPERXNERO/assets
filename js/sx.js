@@ -53,6 +53,70 @@ class SxSelect {
   }
 }
 
+Element.prototype.allChildren = function(includeSelf = false) {
+  let children = Array.from(this.children);
+  children.forEach(child => {
+    children.push(...child.allChildren());
+  });
+  return includeSelf ? [this,
+    ...children]: children;
+};
+Element.prototype.offclick = function (fun,
+  other = {}) {
+  let element = this;
+
+  if (other == true) other = {
+    elementPlus: true
+  }
+  let conditon = other.conditon || 'true',
+  lockEvents = other.lockEvents || false,
+  elementPlus = other.elementPlus,
+  notLock = other.notLock,
+  clearEvent = other.clearEvent;
+  document.addEventListener('mouseup',
+    offClick);
+
+  let elements = [element];
+  if (elementPlus && elementPlus.v) {
+    if (an.isOneElement(elementPlus)) elements = [element,
+      elementPlus];
+    else elements = [element,
+      ...elementPlus];
+  }
+
+  if (lockEvents) {
+    if (!notLock) notLock = elements;
+    element.lockEvents('lock', notLock);
+  }
+
+  function offClick(events) {
+    let event = events || events.changedTouches[0];
+
+    if (elementPlus == true) {
+      removeEvent(event);
+      return;
+    }
+
+    let isNoClick = elements.length;
+    elements.forEach(element => {
+      if (event.target !== element) isNoClick--;
+      if (element.children) {
+        isNoClick += element.allChildren().length;
+        element.allChildren().forEach(child=> {
+          if (event.target !== child) isNoClick--;
+        });
+      }
+    });
+    var cond = typeof conditon == 'function' ? conditon(event): typeof conditon == 'boolean' ? conditon: '';
+    if (isNoClick === 0 && cond !== false || cond === true) removeEvent(event);
+  }
+  function removeEvent(event) {
+    document.removeEventListener('mouseup', offClick);
+    if (lockEvents) element.lockEvents('unlock', notLock);
+    if (typeof fun == 'function') fun(event);
+  }
+}
+
 export {
   SxSelect
 }
