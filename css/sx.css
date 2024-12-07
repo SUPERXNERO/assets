@@ -148,17 +148,42 @@ header {
 }
 
 /* ready css properties */
-.sxButton {
+.sxButton, .sxSelect :is(.current, .list .item) {
   border: 2px solid transparent;
   text-wrap: nowrap;
   padding: 6px;
   background: var(--theme-box3);
   transition: .2s;
 }
-.sxButton:active {
+:is(.sxButton, .sxSelect :is(.current, .list .item)):active {
   filter: brightness(1.5);
   border-color: var(--theme-color2);
   transform: scale(.95);
+}
+
+.sxSelect {
+  position: relative;
+}
+.sxSelect .list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--theme-box3);
+  width: 100%;
+  overflow: scroll;
+  max-height: 400px;
+  z-index: 9;
+  transition: .2s;
+}
+.sxSelect .list.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.sxSelect .list .item {
+  width: 100%;
+  text-wrap: nowrap;
 }
 
 /* media */
