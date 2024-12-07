@@ -1,4 +1,4 @@
-import * as an from "/storage/5A67-DF85/GitHub/assets/libs/another.js";
+import * as an from "https://superxnero.github.io/assets/libs/another.js";
 
 const q = (e)=> document.querySelector(e);
 const qA = (e)=> document.querySelectorAll(e);
