@@ -76,7 +76,7 @@ class GitHubManager {
     this.currentRepo = repoName;
   }
 
-  async createFileInFolder(path, content = "") {
+  async createPath(path, content = "") {
     if (!this.currentRepo) throw new Error("currentRepo is not set.");
     const url = `${this.baseUrl}/repos/${this.username}/${this.currentRepo}/contents/${path}`;
 
@@ -104,7 +104,7 @@ class GitHubManager {
 
   async createEmptyFolder(folderPath) {
     const filePath = `${folderPath}/.gitkeep`;
-    return await this.createFileInFolder(filePath, "");
+    return await this.createPath(filePath, "");
   }
 
 
@@ -179,7 +179,7 @@ class GitHubManager {
       }).then(res => res.json());
 
       const newFilePath = `${newPath}/${item.name}`;
-      await this.createFileInFolder(newFilePath, atob(fileContent.content));
+      await this.createPath(newFilePath, atob(fileContent.content));
       await this.deleteFile(`${oldPath}/${item.name}`);
     }
 
