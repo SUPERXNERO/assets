@@ -1,4 +1,22 @@
 /* main css selectors */
+:root {
+  --one-px: 1px;
+  --two-px: 2px;
+  --three-px: 3px;
+  --five-px: 5px;
+  --four-px: 4px;
+  --six-px: 6px;
+  --eight-px: 8px;
+  --ten-px: 10px;
+  --twelve-px: 12px;
+  --fifteen-px: 15px;
+  --twenty-px: 20px;
+  --twenty-five-px: 25px;
+  --thirty-px: 30px;
+  --forty-px: 40px;
+  --fifty-px: 50px;
+}
+
 *,
 *::before,
 *::after {
@@ -9,7 +27,7 @@
   font-family: inherit;
   user-select: none;
 }
-:placeholder {
+::placeholder {
   color: var(--theme-color2);
 }
 .ds-none {
@@ -174,7 +192,7 @@ header {
   width: 100%;
   overflow: scroll;
   max-height: 400px;
-  z-index: 9;
+  z-index: 2;
   transition: .2s;
 }
 .sxSelect .list.show {
