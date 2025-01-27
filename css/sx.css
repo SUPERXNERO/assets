@@ -204,6 +204,47 @@ header {
   text-wrap: nowrap;
 }
 
+.fade-effect-left,.fade-effect-right,.fade-effect-top,.fade-effect-bottom {
+  position: relative;
+}
+:is(.fade-effect-left,.fade-effect-right,.fade-effect-top,.fade-effect-bottom)::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+:is(.fade-effect-top,.fade-effect-bottom)::after {
+  left: 0;
+  width: 100%;
+  max-width: none;
+  height: 20%;
+  max-height: 50px;
+}
+.fade-effect-top::after {
+  top: 0;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0), var(--theme-box3));
+}
+.fade-effect-bottom::after {
+  top: auto;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--theme-box3));
+}
+:is(.fade-effect-left,.fade-effect-right)::after {
+  bottom: 0;
+  height: 100%;
+  max-height: none;
+  width: 20%;
+  max-width: 50px;
+}
+.fade-effect-left::after {
+  left: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), var(--theme-box3));
+}
+.fade-effect-right::after {
+  left: auto;
+  right: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--theme-box3));
+}
+
 /* media */
 @media (min-width: 800px) {
   #mainSidebar {
