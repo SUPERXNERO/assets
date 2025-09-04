@@ -22,7 +22,7 @@ class TailwindGroup {
 
       while ((match = regex.exec(content)) !== null) {
         const selector = match[1].trim();
-        const classes = match[2].trim().split(/\s+/).filter(Boolean);
+        const classes = match[2].trim().replace(/;$/, "").split(/\s+/).filter(Boolean);
 
         if (selector && classes.length > 0) {
           if (this.rules.has(selector)) {
