@@ -61,15 +61,15 @@ class ElementComponent {
       config: s,
       interactiveData: a,
       element: null,
-      jsReady: false,
+      jsReady: false
     };
 
     this.instances.set(o, c);
     this._applyCSS(o, e, s.css);
 
     return `<div data-component-id="${o}" data-component-name="${e}">
-              ${this._processTemplate(s.html, c)}
-            </div>`;
+  ${this._processTemplate(s.html, c)}
+</div>`;
   }
 
   static run(e, t, s = {}) {
@@ -81,7 +81,7 @@ class ElementComponent {
     const o = {
       interactiveData: n.interactiveData,
       runTimeData: s,
-      instance: n,
+      instance: n
     };
     n.config.functions[t].call(n.config.functions, o);
   }
@@ -90,30 +90,24 @@ class ElementComponent {
     let s = e;
     const n = t.interactiveData;
 
-    s = s.replace(
-      /--{if\s+(.*?)}--([\s\S]*?)--{\/if}--/g,
-      (match, cond, body) => {
-        try {
-          return new Function("object", `return !!(${cond})`)(n) ? body : "";
-        } catch (err) {
-          console.error(`Error evaluating condition "${cond}":`, err);
-          return "";
-        }
+    s = s.replace(/--{if\s+(.*?)}--([\s\S]*?)--{\/if}--/g, (match, cond, body) => {
+      try {
+        return new Function("object", `return !!(${cond})`)(n) ? body : "";
+      } catch (err) {
+        console.error(`Error evaluating condition "${cond}":`, err);
+        return "";
       }
-    );
+    });
 
-    s = s.replace(
-      /--{ElementComponent.get\("([^"]+)"\s*,\s*({.*?})\)}--/g,
-      (match, name, dataStr) => {
-        try {
-          const o = new Function("object", `return ${dataStr}`)(n);
-          return this.get(name, { data: o });
-        } catch (err) {
-          console.error(`Error parsing nested component data for "${name}":`, err);
-          return "";
-        }
+    s = s.replace(/--{ElementComponent.get\("([^"]+)"\s*,\s*({.*?})\)}--/g, (match, name, dataStr) => {
+      try {
+        const o = new Function("object", `return ${dataStr}`)(n);
+        return this.get(name, { data: o });
+      } catch (err) {
+        console.error(`Error parsing nested component data for "${name}":`, err);
+        return "";
       }
-    );
+    });
 
     s = s.replace(/--{object\.([^}]+)}--/g, (match, keyPath) => {
       const val = keyPath.split(".").reduce((obj, k) => (obj || {})[k], n);
@@ -144,11 +138,9 @@ class ElementComponent {
               if (node.matches("[data-component-id]")) {
                 this._initializeJS(parseInt(node.dataset.componentId));
               }
-              node
-                .querySelectorAll("[data-component-id]")
-                .forEach((el) =>
-                  this._initializeJS(parseInt(el.dataset.componentId))
-                );
+              node.querySelectorAll("[data-component-id]").forEach((el) =>
+                this._initializeJS(parseInt(el.dataset.componentId))
+              );
             }
           });
 
@@ -157,11 +149,9 @@ class ElementComponent {
               if (node.matches("[data-component-id]")) {
                 this._destroyInstance(parseInt(node.dataset.componentId));
               }
-              node
-                .querySelectorAll("[data-component-id]")
-                .forEach((el) =>
-                  this._destroyInstance(parseInt(el.dataset.componentId))
-                );
+              node.querySelectorAll("[data-component-id]").forEach((el) =>
+                this._destroyInstance(parseInt(el.dataset.componentId))
+              );
             }
           });
         }
@@ -193,7 +183,7 @@ class ElementComponent {
                 interactiveData: t.interactiveData,
                 instance: t,
                 event,
-                eventData: ev.data || {},
+                eventData: ev.data || {}
               });
             }
           });
@@ -216,7 +206,7 @@ class ElementComponent {
       if (s.functions && s.functions.onDestroy) {
         s.functions.onDestroy.call(s.functions, {
           instance: t,
-          interactiveData: t.interactiveData,
+          interactiveData: t.interactiveData
         });
       }
       this.instances.delete(e);
