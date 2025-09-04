@@ -1,6 +1,6 @@
 class TailwindGroup {
-  constructor(e = "text/tailwindcss-groups") {
-    this.scriptType = e;
+  constructor(scriptType = "text/tailwindcss-groups") {
+    this.scriptType = scriptType;
     this.rules = new Map();
     this.observer = null;
     this.observerScope = "deep";
@@ -12,45 +12,44 @@ class TailwindGroup {
   }
 
   findAndParseGroups() {
-    const e = document.querySelectorAll(`script[type="${this.scriptType}"]`);
-    e.forEach((e) => {
-      const t = e.innerHTML;
-      let s;
-      for (
-        ;
-        null !==
-        (s =
-          /([^{]+)\s*\{\s*@apply\s+([^}]+);?\s*}/g.exec(t));
+    const scripts = document.querySelectorAll(`script[type="${this.scriptType}"]`);
 
-      ) {
-        const e = s[1].trim(),
-          t = s[2].trim().split(/\s+/).filter(Boolean);
+    scripts.forEach((script) => {
+      const content = script.innerHTML;
+      let match;
 
-        if (e && t.length > 0) {
-          if (this.rules.has(e)) {
-            const s = this.rules.get(e);
-            this.rules.set(e, [...new Set([...s, ...t])]);
+      const regex = /([^{]+)\s*\{\s*@apply\s+([^}]+);?\s*}/g;
+
+      while ((match = regex.exec(content)) !== null) {
+        const selector = match[1].trim();
+        const classes = match[2].trim().split(/\s+/).filter(Boolean);
+
+        if (selector && classes.length > 0) {
+          if (this.rules.has(selector)) {
+            const existing = this.rules.get(selector);
+            this.rules.set(selector, [...new Set([...existing, ...classes])]);
           } else {
-            this.rules.set(e, t);
+            this.rules.set(selector, classes);
           }
         }
       }
     });
   }
 
-  applyClasses(e, t = "deep") {
-    this.rules.forEach((s, n) => {
+  applyClasses(element, scope = "deep") {
+    this.rules.forEach((classes, selector) => {
       try {
-        if (e.matches && e.matches(n)) {
-          e.classList.add(...s);
+        if (element.matches && element.matches(selector)) {
+          element.classList.add(...classes);
         }
-        if (t === "deep") {
-          e.querySelectorAll(n).forEach((el) => {
-            el.classList.add(...s);
+
+        if (scope === "deep") {
+          element.querySelectorAll(selector).forEach((el) => {
+            el.classList.add(...classes);
           });
         }
       } catch (err) {
-        console.error(`TailwindGroup: Invalid selector "${n}".`, err);
+        console.error(`TailwindGroup: Invalid selector "${selector}".`, err);
       }
     });
   }
@@ -59,36 +58,39 @@ class TailwindGroup {
     this.applyClasses(document.documentElement, "deep");
   }
 
-  reapplyFor(e, t = { scope: "deep" }) {
-    if (!e || !(e instanceof HTMLElement)) {
-      return void console.error(
-        'TailwindGroup: "reapplyFor" requires a valid HTML element.'
-      );
+  reapplyFor(element, options = { scope: "deep" }) {
+    if (!element || !(element instanceof HTMLElement)) {
+      console.error('TailwindGroup: "reapplyFor" requires a valid HTML element.');
+      return;
     }
-    const s = t.scope || "deep";
-    this.applyClasses(e, s);
+
+    const scope = options.scope || "deep";
+    this.applyClasses(element, scope);
   }
 
-  observe(e = document.body, t = { scope: "deep" }) {
-    this.observerScope = t.scope || "deep";
-    const s = { childList: true, subtree: true },
-      n = (mutations) => {
-        for (const mutation of mutations) {
-          if (mutation.type === "childList") {
-            for (const node of mutation.addedNodes) {
-              if (node.nodeType === 1) {
-                this.applyClasses(node, this.observerScope);
-              }
+  observe(target = document.body, options = { scope: "deep" }) {
+    this.observerScope = options.scope || "deep";
+
+    const config = { childList: true, subtree: true };
+
+    const callback = (mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === "childList") {
+          for (const node of mutation.addedNodes) {
+            if (node.nodeType === 1) {
+              this.applyClasses(node, this.observerScope);
             }
           }
         }
-      };
+      }
+    };
 
-    this.observer = new MutationObserver(n);
-    this.observer.observe(e, s);
+    this.observer = new MutationObserver(callback);
+    this.observer.observe(target, config);
+
     console.log(
       `TailwindGroup: Observing with scope: "${this.observerScope}" in`,
-      e
+      target
     );
   }
 
